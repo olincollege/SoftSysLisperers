@@ -1,4 +1,14 @@
+/**
+ * Receives prompt and spits it back out
+ * 
+ * When testing, run gcc prompt.c -ledit -o prompt
+ */
+
 #include <stdio.h>
+#include <stdlib.h>
+
+#include <editline/readline.h>
+#include <editline/history.h>
 
 // Declare buffer size of 2048 for user input
 static char input[2048];
@@ -12,14 +22,17 @@ int main(int argc, char** argv) {
   // Always take command unless ended
   while (1) {
 
-    // Output prompt
-    fputs("Lisperer> ", stdout);
+    // Output tag and take input
+    char* input = readline("Lisperer>\n");
 
-    // Read line
-    fgets(input, 2048, stdin);
+    // Add input to history
+    add_history(input);
 
     // Return what the user inputs
-    printf("Your Message: %s", input);
+    printf("Your Message: %s\n", input);
+
+    // Free retrieved input
+    free(input);
   }
   return 0;
 }
