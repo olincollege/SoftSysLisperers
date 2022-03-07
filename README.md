@@ -4,4 +4,4 @@ A Lisp-Based Language in C developed by [Conan McGannon](https://github.com/hyrt
 
 Instructions for Use: 
 
-When testing, run `gcc prompt.c -ledit -o prompt` on terminal (assuming Bash)
+When testing, run `cc -std=c99 -Wall parsing.c mpc.c -ledit -lm -o parsing` on terminal (assuming Bash)
