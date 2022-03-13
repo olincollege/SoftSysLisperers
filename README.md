@@ -7,4 +7,4 @@ Please run: `sudo apt-get install libedit-dev` before attempting to run project
 
 Instructions for Use: 
 
-When testing, run `cc -std=c99 -Wall parsing.c mpc.c -ledit -lm -o parsing` on terminal (assuming Bash)
+When testing, run `cc -std=c99 -Wall main.c mpc.c -ledit -lm -o main` on terminal (assuming Bash)

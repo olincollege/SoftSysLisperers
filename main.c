@@ -1,7 +1,7 @@
 /**
  * Prasing Language from the Prompt with the base Polish Notation Grammar.
  * 
- * When testing, run cc -std=c99 -Wall parsing.c mpc.c -ledit -lm -o parsing
+ * When testing, run cc -std=c99 -Wall main.c mpc.c -ledit -lm -o main
  */
 
 #include <stdio.h>
