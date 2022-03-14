@@ -27,35 +27,100 @@ char* readline(char* prompt){
 #else
 #endif
 
+// Enumeration of Possible Error Types
+enum {LERR_DIV_ZERO, LERR_BAD_OP, LERR_BAD_NUM};
+
+// Enumeration of Possible lval Types
+enum {LVAL_NUM, LVAL_ERR};
+
+// Create New Lisp Value Struct called `lval`
+typedef struct {
+  int type;
+  long num;
+  int err;
+} lval;
+
+// Create new number type lval
+lval lval_num(long x){
+  lval v;
+  v.type = LVAL_NUM;
+  v.num = x;
+  return v;
+}
+
+// Create new error type lval
+lval lval_err(int x){
+  lval v;
+  v.type = LVAL_ERR;
+  v.err = x;
+  return v;
+}
+
+// Print lval
+void lval_print(lval v){
+  switch(v.type){
+    // In case type is a number, print it.
+    case LVAL_NUM: 
+      printf("%li", v.num);
+      break;
+    // In case type is invalid
+    case LVAL_ERR:
+      if (v.err == LERR_DIV_ZERO){
+        printf("Error: Division By Zero!");
+      }
+      else if (v.err == LERR_BAD_OP){
+        printf("Error: Invalid Operator!");
+      }
+      else if (v.err == LERR_BAD_NUM){
+        printf("Error: Invalid Number!");
+      }
+    break;
+  }
+}
+
+void lval_println(lval v){
+  lval_print(v);
+  putchar('\n');
+}
+
 // Get operator string 
-long eval_op(long x, char* op, long y){
+lval eval_op(lval x, char* op, lval y){
+  if(x.type == LVAL_ERR){
+    return x;
+  }
+  else if(y.type == LVAL_ERR){
+    return y;
+  }
+
   if(strcmp(op, "+") == 0){
-    return x + y;
+    return lval_num(x.num+y.num);
   }
   else if(strcmp(op, "-") == 0){
-    return x - y;
+    return lval_num(x.num-y.num);
   }
   else if(strcmp(op, "-") == 0){
-    return x * y;
+    return lval_num(x.num*y.num);
   }
   else if(strcmp(op, "/") == 0){
-    return x / y;
+    return y.num == 0 ? lval_err(LERR_DIV_ZERO): lval_num(x.num / y.num);
   }
-  return 0;
+  return lval_err(LERR_BAD_OP);
 }
 
 // Evaluate function based on input
-long eval(mpc_ast_t* t){
+lval eval(mpc_ast_t* t){
   // If tagged as number, return it directly
   if(strstr(t->tag, "number")){
-    return atoi(t->contents);
+    errno = 0;
+    long x = strtol(t->contents, NULL, 10);
+    return errno != ERANGE ? lval_num(x):lval_err(LERR_BAD_NUM);
   }
 
   // Operator is always second child
   char *operator = t->children[1]->contents;
 
   // Store third child in 'x'
-  long x = eval(t->children[2]);
+  lval x = eval(t->children[2]);
 
   int i = 3;
   while(strstr(t->children[i]->tag, "expression")){
@@ -102,8 +167,8 @@ int main(int argc, char** argv) {
     // Parse Unit Input
     mpc_result_t r;
     if(mpc_parse("<stdin>", input, lsp, &r)){
-      long result = eval(r.output);
-      printf("%li\n", result);
+      lval result = eval(r.output);
+      lval_println(result);
       // mpc_ast_print(r.output);
       mpc_ast_delete(r.output);
     }
