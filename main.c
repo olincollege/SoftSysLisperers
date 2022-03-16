@@ -283,7 +283,58 @@ lval* lval_read_num(mpc_ast_t* t) {
     lval_num(x) : lval_err("invalid number");
 }
 
+lval* builtin_head(lval* a) {
+  /* Check Error Conditions */
+  if (a->count != 1) {
+    lval_del(a);
+    return lval_err("Function 'head' passed too many arguments!");
+  }
+
+  if (a->cell[0]->type != LVAL_QEXPR) {
+    lval_del(a);
+    return lval_err("Function 'head' passed incorrect types!");
+  }
+
+  if (a->cell[0]->count == 0) {
+    lval_del(a);
+    return lval_err("Function 'head' passed {}!");
+  }
+
+  /* Otherwise take first argument */
+  lval* v = lval_take(a, 0);
+
+  /* Delete all elements that are not head and return */
+  while (v->count > 1) { lval_del(lval_pop(v, 1)); }
+  return v;
+}
+
+lval* builtin_tail(lval* a) {
+  /* Check Error Conditions */
+  if (a->count != 1) {
+    lval_del(a);
+    return lval_err("Function 'tail' passed too many arguments!");
+  }
+
+  if (a->cell[0]->type != LVAL_QEXPR) {
+    lval_del(a);
+    return lval_err("Function 'tail' passed incorrect types!");
+  }
+
+  if (a->cell[0]->count == 0) {
+    lval_del(a);
+    return lval_err("Function 'tail' passed {}!");
+  }
+
+  /* Take first argument */
+  lval* v = lval_take(a, 0);
+
+  /* Delete first element and return */
+  lval_del(lval_pop(v, 0));
+  return v;
+}
+
 lval* lval_read(mpc_ast_t* t) {
+  
   // If Symbol or Number return conversion to that type
   if (strstr(t->tag, "number")) {
     return lval_read_num(t);
