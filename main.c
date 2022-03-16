@@ -309,6 +309,24 @@ lval* builtin_tail(lval* a) {
   return v;
 }
 
+// Converts input S-Expression to Q-Expression
+lval* builtin_list(lval* a) {
+  a->type = LVAL_QEXPR;
+  return a;
+}
+
+// Takes some input single Q-expression, converts into S-Expression, and evaluates
+lval* builtin_eval(lval* a) {
+  LASSERT(a, a->count == 1,
+    "Function 'eval' passed too many arguments!");
+  LASSERT(a, a->cell[0]->type == LVAL_QEXPR,
+    "Function 'eval' passed incorrect type!");
+
+  lval* x = lval_take(a, 0);
+  x->type = LVAL_SEXPR;
+  return lval_eval(x);
+}
+
 lval* lval_read(mpc_ast_t* t) {
   
   // If Symbol or Number return conversion to that type
