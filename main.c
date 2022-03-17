@@ -96,6 +96,7 @@ void lval_del(lval* v) {
     case LVAL_ERR:
       free(v->err);
       break;
+
     case LVAL_SYM:
       free(v->sym);
       break;
@@ -323,8 +324,6 @@ lval* builtin(lval* a, char* func) {
   return lval_err("Unknown Function!");
 }
 
-lval* lval_eval(lval* v);
-
 lval* lval_eval_sexpr(lval* v) {
   
   // Evaluate Children 
@@ -427,13 +426,14 @@ int main(int argc, char** argv) {
   mpc_parser_t* Lispy  = mpc_new("lispy");
   
   mpca_lang(MPCA_LANG_DEFAULT,
-    "                                          \
-      number : /-?[0-9]+/ ;                    \
-      symbol : '+' | '-' | '*' | '/' ;         \
-      sexpr  : '(' <expr>* ')' ;               \
-      qexpr  : '{ <expr>* '}' ;                \
-      expr   : <number> | <symbol> | <sexpr> ; \
-      lispy  : /^/ <expr>* /$/ ;               \
+    "                                                    \
+      number : /-?[0-9]+/ ;                              \
+      symbol : \"list\" | \"head\" | \"tail\" | \"eval\" \
+             | \"join\" | '+' | '-' | '*' | '/' ;        \
+      sexpr  : '(' <expr>* ')' ;                         \
+      qexpr  : '{' <expr>* '}' ;                         \
+      expr   : <number> | <symbol> | <sexpr> | <qexpr> ; \
+      lispy  : /^/ <expr>* /$/ ;                         \
     ",
     Number, Symbol, Sexpr, Qexpr, Expr, Lispy);
   
