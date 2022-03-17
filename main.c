@@ -27,19 +27,26 @@ char* readline(char* prompt) {
 #else
 #endif
 
+struct lval;
+struct lenv;
+typedef struct lval lval;
+typedef struct lenv lenv;
+
 // Possible lval (locator value) type
 enum { LVAL_ERR, LVAL_NUM, LVAL_SYM, LVAL_SEXPR, LVAL_QEXPR };
 
+typedef lval*(*lbuiltin)(lenv*, lval*);
+
 // Create lval data type
-typedef struct lval {
+struct lval {
   int type;
   long num;
   char* err;
   char* sym;
-  // Count and Pointer to a list of "lval*"; 
+  lbuiltin fun;
   int count;
-  struct lval** cell;
-} lval;
+  lval** cell;
+};
 
 // Construct a pointer to a new Number lval  
 lval* lval_num(long x) {
@@ -50,11 +57,18 @@ lval* lval_num(long x) {
 }
 
 // Construct a pointer to a new Error lval  
-lval* lval_err(char* m) {
+lval* lval_err(char* fmt) {
   lval* v = malloc(sizeof(lval));
   v->type = LVAL_ERR;
-  v->err = malloc(strlen(m) + 1);
-  strcpy(v->err, m);
+
+  va_list va;
+
+  v->err = malloc(512);
+
+  vsnprintf(v->err, 511, fmt, va);
+
+  v->err = realloc(v->err, strlen(v->err)+1);
+
   return v;
 }
 
