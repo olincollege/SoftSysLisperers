@@ -31,7 +31,6 @@ def {addition} +
 addition 1 2 3 -> 6
 
 def {add-mul} (\ {x y} {+ x (* x y)})
-
 add-mul 10 20 -> 210
 
 ## Conditionals
