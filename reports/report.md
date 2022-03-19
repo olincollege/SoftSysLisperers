@@ -31,13 +31,36 @@ Add more potential resources later.
 
 ## 4) What were you able to get done?  Include in the report whatever evidence is appropriate to demonstrate the outcome of the project.  Consider including snippets of code with explanation; do not paste in large chunks of unexplained code.  Consider including links to relevant files.  And do include output from the program(s) you wrote.
 
-Full program that acts as a calculator where you can save numbers to variables and complex operations into functions.
+We were able to complete a full program that acts as an integer calculator where you can save numbers to variables and complex operations into functions. The output starts by printing three introductory lines, and reading the user's input:
+
+    Lisperers Version 1.0
+    Press Ctrl+c to Exit
+
+    Lisperers> 
+
+From here you can do operations between integers (in Polish notation):
+
+    Lisperers> + 1 2 3 4 5 6 7 8 9
+    45
+    Lisperers> * 3 5 7 9
+    945
+    Lisperers> / 314 100
+    3
+    Lisperers> / 386 100
+    3
+
+As you may notice from the last two division operation lines, it is not only an integer calculator in terms of its input, but also in its output. If it would otherwise have a fractional answer, it always rounds down, or in other words, discards the remainder. You can also define different variables in the following way:
+
+    Lisperers> def {x} 187
+    ()
+    Lisperers> x
+    187
 
 TODO: Link snippets of code with explanations of our process.
 
 ## 5) Explain at least one design decision you made.  Were there several ways to do something?  Which did you choose and why?
 
-Although the Lisp Documentation was vast to be able to create a full fledged programming language that can build projects, we decided that we wanted to keep things simple by restricting what we wanted in our language. We wanted to build a command line tool that was able to do simple computations with addition, subtraction, multiplication, division and being able to return them, assign values to variables within the local environment, and the user able to define functions in the prompt.
+Although the Lisp Documentation was vast to be able to create a full-fledged programming language that can build projects, we decided that we wanted to keep things simple by restricting what we wanted in our language. We wanted to build a command line tool that was able to do simple computations with addition, subtraction, multiplication, division and being able to return them, assign values to variables within the local environment, and the user able to define functions in the prompt.
 
 ## 6) You will probably want to present a few code snippets that present the most important parts of your implementation.  You should not paste in large chunks of code or put them in the Appendix.  You can provide a link to a code file, but the report should stand alone; I should not have to read your code files to understand what you did.
 
