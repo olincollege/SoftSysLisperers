@@ -41,7 +41,7 @@ typedef struct lval lval;
 typedef struct lenv lenv;
 
 // Create Enumeration of Lisp Values
-enum { LVAL_ERR, LVAL_NUM, LVAL_SYM, LVAL_STR, LVAL_FUN, LVAL_SEXPR, LVAL_QEXPR };
+enum { LVAL_ERR, LVAL_NUM, LVAL_SYM, LVAL_FUN, LVAL_SEXPR, LVAL_QEXPR };
        
 typedef lval*(*lbuiltin)(lenv*, lval*);
 
@@ -53,7 +53,6 @@ struct lval {
   long num;
   char* err;
   char* sym;
-  char* str;
   
   // Function
   lbuiltin builtin;
@@ -93,15 +92,6 @@ lval* lval_sym(char* s) {
   v->type = LVAL_SYM;
   v->sym = malloc(strlen(s) + 1);
   strcpy(v->sym, s);
-  return v;
-}
-
-// Construct pointer to a string lval
-lval* lval_str(char* s) {
-  lval* v = malloc(sizeof(lval));
-  v->type = LVAL_STR;
-  v->str = malloc(strlen(s) + 1);
-  strcpy(v->str, s);
   return v;
 }
 
@@ -165,7 +155,6 @@ void lval_del(lval* v) {
     break;
     case LVAL_ERR: free(v->err); break;
     case LVAL_SYM: free(v->sym); break;
-    case LVAL_STR: free(v->str); break;
 
     // If Special or Quotated Expression found, then delete all elements inside
     case LVAL_QEXPR:
@@ -176,7 +165,6 @@ void lval_del(lval* v) {
       free(v->cell);
     break;
   }
-  
   free(v);
 }
 
@@ -201,7 +189,9 @@ lval* lval_copy(lval* v) {
     break;
 
     // Copy Numbers Directly
-    case LVAL_NUM: x->num = v->num; break;
+    case LVAL_NUM:
+      x->num = v->num;
+      break;
 
     // Copy Strings using malloc and strcpy
     case LVAL_ERR: x->err = malloc(strlen(v->err) + 1);
@@ -210,11 +200,8 @@ lval* lval_copy(lval* v) {
     case LVAL_SYM: x->sym = malloc(strlen(v->sym) + 1);
       strcpy(x->sym, v->sym);
     break;
-    case LVAL_STR: x->str = malloc(strlen(v->str) + 1);
-      strcpy(x->str, v->str);
-    break;
 
-    // COpy lists by copying each sub-expression
+    // Copy lists by copying each sub-expression
     case LVAL_SEXPR:
     case LVAL_QEXPR:
       x->count = v->count;
@@ -283,19 +270,6 @@ void lval_print_expr(lval* v, char open, char close) {
   putchar(close);
 }
 
-// Print lval string
-void lval_print_str(lval* v) {
-  // Make a Copy of the string 
-  char* escaped = malloc(strlen(v->str)+1);
-  strcpy(escaped, v->str);
-  // Pass it through the escape function 
-  escaped = mpcf_escape(escaped);
-  // Print it between " characters 
-  printf("\"%s\"", escaped);
-  // free the copied string 
-  free(escaped);
-}
-
 // Print an "lval" values onto the output
 void lval_print(lval* v) {
   switch (v->type) {
@@ -310,73 +284,46 @@ void lval_print(lval* v) {
         putchar(')');
       }
     break;
-    case LVAL_NUM:   printf("%li", v->num); break;
-    case LVAL_ERR:   printf("Error: %s", v->err); break;
-    case LVAL_SYM:   printf("%s", v->sym); break;
-    case LVAL_STR:   lval_print_str(v); break;
-    case LVAL_SEXPR: lval_print_expr(v, '(', ')'); break;
-    case LVAL_QEXPR: lval_print_expr(v, '{', '}'); break;
+    case LVAL_NUM:
+      printf("%li", v->num);
+      break;
+    case LVAL_ERR:
+      printf("Error: %s", v->err);
+      break;
+    case LVAL_SYM:
+      printf("%s", v->sym);
+      break;
+    case LVAL_SEXPR:
+      lval_print_expr(v, '(', ')');
+      break;
+    case LVAL_QEXPR:
+      lval_print_expr(v, '{', '}');
+      break;
   }
 }
 
 // Print lval followed by a newline
-void lval_println(lval* v) { lval_print(v); putchar('\n'); }
-
-// Chows if all fields are equal
-int lval_eq(lval* x, lval* y) {
-  
-  // Different types are always unequal
-  if (x->type != y->type) {
-    return 0;
-  }
-  
-  // Compare based upon type
-  switch (x->type) {
-    // Compare number values
-    case LVAL_NUM: return (x->num == y->num);
-
-    // Compare string values
-    case LVAL_ERR: return (strcmp(x->err, y->err) == 0);
-    case LVAL_SYM: return (strcmp(x->sym, y->sym) == 0);
-    case LVAL_STR: return (strcmp(x->str, y->str) == 0);
-
-    // If builtins compare, otherwise compare formals and body 
-    case LVAL_FUN: 
-      if (x->builtin || y->builtin) {
-        return x->builtin == y->builtin;
-      } else {
-        return lval_eq(x->formals, y->formals) && lval_eq(x->body, y->body);
-      }
-
-    // If list compare every individual element
-    case LVAL_QEXPR:
-    case LVAL_SEXPR:
-      if (x->count != y->count) {
-        return 0;
-      }
-      for (int i = 0; i < x->count; i++) {
-        // If any element not equal, then whole list is not equal
-        if (!lval_eq(x->cell[i], y->cell[i])) {
-          return 0;
-        }
-      }
-      // Return true after all these checks
-      return 1;
-    break;
-  }
-  return 0;
+void lval_println(lval* v) {
+  lval_print(v);
+  putchar('\n');
 }
 
 // Report type of function was expected
 char* ltype_name(int t) {
   switch(t) {
-    case LVAL_FUN: return "Function";
-    case LVAL_NUM: return "Number";
-    case LVAL_ERR: return "Error";
-    case LVAL_SYM: return "Symbol";
-    case LVAL_STR: return "String";
-    case LVAL_SEXPR: return "S-Expression";
-    case LVAL_QEXPR: return "Q-Expression";
-    default: return "Unknown";
+    case LVAL_FUN:
+      return "Function";
+    case LVAL_NUM:
+      return "Number";
+    case LVAL_ERR:
+      return "Error";
+    case LVAL_SYM:
+      return "Symbol";
+    case LVAL_SEXPR:
+      return "S-Expression";
+    case LVAL_QEXPR:
+      return "Q-Expression";
+    default:
+      return "Unknown";
   }
 }
