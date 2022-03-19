@@ -8,5 +8,5 @@ Please run: `sudo apt-get install libedit-dev` before attempting to run project
 
 Instructions for Use: 
 
-When testing, run `cc -std=c99 -Wall main.c mpc.c -ledit -lm -o main` on
+When testing, run `gcc main.c mpc.c -ledit -lm -o main` on
 terminal (assuming Bash).

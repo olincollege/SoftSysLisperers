@@ -2,7 +2,7 @@
  * Main file that receives user input and acts as a command line for our Lisperers language.
  * Current Example based on Polish Notation
  * 
- * When testing: run cc -std=c99 -Wall main.c mpc.c -ledit -lm -o main
+ * When testing: run `gcc main.c mpc.c -ledit -lm -o main`
  */
 
 #include <stdio.h>
