@@ -15,3 +15,13 @@
 - http://www.t3x.org/lisp9/index.html
 - https://leanpub.com/progalgs
 - https://github.com/norvig/paip-lisp/releases/tag/v1.0
+
+Communities
+- https://www.reddit.com/r/lisp/
+- https://www.reddit.com/r/common_lisp
+- https://www.reddit.com/r/learnlisp
+- https://discord.com/invite/hhk46CE
+
+Blogs
+- http://planet.lisp.org/
+- http://thelittlelisper.blogspot.com/
