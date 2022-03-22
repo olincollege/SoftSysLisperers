@@ -63,6 +63,12 @@ And with our implementation we have our Lisp-based calculator that can save vari
 
 To run the program yourself, navigate to the `src` folder and run `./main` on your terminal. Or you can recompile the program using the command `gcc main.c mpc.c -ledit -lm -o main.`
 
+## Reflection
+
+Overall, we are satisfied with our work completing the Lisp-based calculator. While we were not able to reach our goals of building a full-fledged Lisp language that can have programs be built off of it, we are satisfied more in the progress we made learning about the Lisps, its uses, history, and implementation. We learned a lot when it comes to special ways in parsing through Special Expressions and Quoted Expressions within a Lisp environment. In our next steps, we hope to continue this project further to include string and conditional implementations as well as implementing a standard library of functions so a future user may be able to implement a project using the language.
+
+But with where we are at right now, through all that learning and progress we made in this month, we were able to have an implementation that can take in input, parse it for specific commands, compute mathematical operations, and save operations and numbers into functions and variables respectively.
+
 ## Outline:
 
 Your project report should answer the following questions (note that some are the same as in the proposal and the update):
