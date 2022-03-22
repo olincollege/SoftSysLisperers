@@ -22,9 +22,9 @@ The full list of resources we consulted through our research can be found [here]
 
 ## Implementation
 
-Since most of our time was spent on wrapping our heads around learning more about Lisp and its history and studying concepts such as S-Expressions to format and parse data, we were at a point where we had our lower-bound implementation of computing numerical operations by the time break came around. We knew that we couldn't implement our higher-bound projected goal of a full-fledged programming language during break, so we decided to pivot into a "complex calculator" that can do integer computations while also saving numbers into variables and expressions into functions with parameters. We also wanted to implement our own "flavor" of Lisp with its own syntax, but after learning more about its history and common syntax across different Lisps, we decided to keep its general structure of `fun var1 var2 var3`.
+ Most of our time was spent on wrapping our heads around studying these concepts, implementing them while also devling into Lisps and its history, we were at a point where we had our lower-bound implementation of computing numerical operations by the time break came around. We knew that we couldn't implement our higher-bound projected goal of a full-fledged programming language during break, so we decided to pivot into a "complex calculator" that can do integer computations while also saving numbers into variables and expressions into functions with parameters. We also wanted to implement our own "flavor" of Lisp with its own syntax, but after learning more about its history and common syntax across different Lisps, we decided to keep its general structure of `fun var1 var2 var3` throughout our program.
 
-After completing that, we have our final Lisperers program that acts as an integer calculator where you can save numbers to variables and complex operations into functions. The output starts by printing three introductory lines, and reading the user's input:
+And with that, we have our final Lisperers program that acts as an integer calculator where you can save numbers to variables and complex operations into functions. The output starts by printing three introductory lines, and reading the user's input:
 
     Lisperers Version 1.0
     Press Ctrl+c to Exit
