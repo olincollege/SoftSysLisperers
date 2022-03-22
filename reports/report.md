@@ -26,7 +26,86 @@ The full list of resources we consulted through our research can be found [here]
 
 ## Implementation
 
- Most of our time was spent on wrapping our heads around studying these concepts, implementing them while also devling into Lisps and its history, we were at a point where we had our lower-bound implementation of computing numerical operations by the time break came around. We knew that we couldn't implement our higher-bound projected goal of a full-fledged programming language during break, so we decided to pivot into a "complex calculator" that can do integer computations while also saving numbers into variables and expressions into functions with parameters. We also wanted to implement our own "flavor" of Lisp with its own syntax, but after learning more about its history and common syntax across different Lisps, we decided to keep its general structure of `fun var1 var2 var3` throughout our program.
+Before going into the writing the language, we wrote an output that prints out the instructions as well as a command line prompt. And this is a simple step: within `main.c` put lines on the prompt and output readline input within a while loop. We also want to set up a function that will be able to read the input coming after "Lisperers> " and copy it to a variable for later use.
+
+```C
+char* readline(char* prompt) {
+  fputs(prompt, stdout);
+  fgets(buffer, 2048, stdin);
+  char* cpy = malloc(strlen(buffer)+1);
+  strcpy(cpy, buffer);
+  cpy[strlen(cpy)-1] = '\0';
+  return cpy;
+}
+
+puts("Lisperers Version 1.0");
+puts("Press Ctrl+C to Exit\n");
+  
+while(1){
+// Output Readline Input
+ char* input = readline("Lisperers> ");
+```
+
+To parse the input, we first define our parsers to find key characters and words in our input using Regex.
+
+```C
+mpc_parser_t* Number = mpc_new("number");
+mpc_parser_t* Symbol = mpc_new("symbol");
+mpc_parser_t* Sexpr  = mpc_new("sexpr");
+mpc_parser_t* Qexpr  = mpc_new("qexpr");
+mpc_parser_t* Expr   = mpc_new("expr");
+mpc_parser_t* Lispy  = mpc_new("lispy");
+  
+mpca_lang(MPCA_LANG_DEFAULT,
+"                                                     \
+  number : /-?[0-9]+/ ;                               \
+  symbol  : /[a-zA-Z0-9_+\\-*\\/\\\\=<>!&]+/ ;        \
+  sexpr  : '(' <expr>* ')' ;                          \
+  qexpr  : '{' <expr>* '}' ;                          \
+  expr   : <number> | <symbol> | <sexpr> | <qexpr> ;  \
+  lispy  : /^/ <expr>* /$/ ;                          \
+",
+ Number, Symbol, Sexpr, Qexpr, Expr, Lispy);
+```
+
+Next, we create a virtual environment as well as the built-in functions for which our input and code lives in (defined in `lenv.c` for the virtual environment and `builtin.c` for the built-in functions)
+
+```C
+lenv* e = lenv_new();
+lenv_add_builtins(e);
+```
+
+Then for the input, we get the Lisp value from after the "Lisperers> " code prompt and evaluate it (defined in `lval.c`). We can also catch errors and print the error message accordingly.
+
+```C
+mpc_result_t r;
+if (mpc_parse("<stdin>", input, Lispy, &r)) {
+ // Read and evaluate stdin
+ lval* x = lval_eval(e, lval_read(r.output));
+ lval_println(x);
+ lval_del(x);
+        
+ mpc_ast_delete(r.output);
+}
+else {
+ // Print and delete error
+ mpc_err_print(r.error);
+ mpc_err_delete(r.error);
+}
+```
+
+At the end of our main function, we need to free our input when we are done, as well as delete the Lisp value while cleaning up the parsers to end the function
+
+```C
+ // Free dynamically allocated input when done
+ free(input);
+}
+lenv_del(e);
+mpc_cleanup(6, Number, Symbol, Sexpr, Qexpr, Expr, Lispy);
+return 0;
+```
+
+Most of our time was spent on wrapping our heads around studying these concepts, implementing them while also devling into Lisps and its history, we were at a point where we had our lower-bound implementation of computing numerical operations by the time break came around. We knew that we couldn't implement our higher-bound projected goal of a full-fledged programming language during break, so we decided to pivot into a "complex calculator" that can do integer computations while also saving numbers into variables and expressions into functions with parameters. We also wanted to implement our own "flavor" of Lisp with its own syntax, but after learning more about its history and common syntax across different Lisps, we decided to keep its general structure of `fun var1 var2 var3` throughout our program.
 
 And with that, we have our final Lisperers program that acts as an integer calculator where you can save numbers to variables and complex operations into functions. The output starts by printing three introductory lines, and reading the user's input:
 
