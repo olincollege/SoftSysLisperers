@@ -6,6 +6,8 @@ A Lisp-Based Language in C developed by [Conan McGannon](https://github.com/hyrt
 
 **Lisp** is a family of programming languages characterised by its source code comprised of lists with a history dated backed to John McCarthy developing Lisp in 1958, making it the second-oldest high-level programming language (still in use) after Fortran. The language was originally created as a practical mathematical notation for computer programs, which later derived intself to become the favored language for computer science research, particularly artificial intelligence, due to its ability to process symbolic information effectively.
 
+All code within a Lisp language is written as a type of list known as an S-Expression, and a function call within a Lisp is also structured as a list, of the form (`function` argument1 argument2 argument3). 
+
 ## Project and Learning Goals
 
 The goal of our project is to gain fluency in C and its lower-level capabilities within memory management and language constructs. We want to attain our goal of getting more familiar with C by working with Lisps by learning more about its history and uses over time while developing our own basic implementation based on *Common Lisp*, a general-purpose Lisp language specification that supports multiple paradigms. And by working with Lisps, we want to understand how a core programming language is structured and seek new ways to view computation. Outside of computing, we want to collaborate effectively on the project through goal allocations and proper source code management to build a final product we can be proud of.
@@ -22,14 +24,16 @@ The full list of resources we consulted through our research can be found [here]
 
 ## Implementation
 
-By the end of the project, we were able to complete a full program that acts as an integer calculator where you can save numbers to variables and complex operations into functions. The output starts by printing three introductory lines, and reading the user's input:
+ Most of our time was spent on wrapping our heads around studying these concepts, implementing them while also devling into Lisps and its history, we were at a point where we had our lower-bound implementation of computing numerical operations by the time break came around. We knew that we couldn't implement our higher-bound projected goal of a full-fledged programming language during break, so we decided to pivot into a "complex calculator" that can do integer computations while also saving numbers into variables and expressions into functions with parameters. We also wanted to implement our own "flavor" of Lisp with its own syntax, but after learning more about its history and common syntax across different Lisps, we decided to keep its general structure of `fun var1 var2 var3` throughout our program.
+
+And with that, we have our final Lisperers program that acts as an integer calculator where you can save numbers to variables and complex operations into functions. The output starts by printing three introductory lines, and reading the user's input:
 
     Lisperers Version 1.0
     Press Ctrl+c to Exit
 
     Lisperers> 
 
-From here you can do operations between integers (in Polish notation):
+From here the program can complete operations between integers:
 
     Lisperers> + 1 2 3 4 5 6 7 8 9
     45
@@ -40,7 +44,7 @@ From here you can do operations between integers (in Polish notation):
     Lisperers> / 386 100
     3
 
-As you may notice from the last two division operation lines, it is not only an integer calculator in terms of its input, but also in its output. If it would otherwise have a fractional answer, it always rounds down, or in other words, discards the remainder. You can also define different variables in the following way:
+The user can also define different variables in the following way:
 
     Lisperers> def {var} 187
     ()
@@ -105,7 +109,11 @@ We were able to complete a full program that acts as an integer calculator where
 
     Lisperers> 
 
-From here you can do operations between integers (in Polish notation):
+Since most of our time was spent on wrapping our heads around learning more about Lisp and its history and studying concepts such as S-Expressions to format and parse data, we were at a point where we had our lower-bound implementation of computing numerical operations by the time break came around. We knew that we couldn't implement our higher-bound projected goal of a full-fledged programming language during break, so we decided to pivot into a "complex calculator" that can do integer computations while also saving numbers into variables and expressions into functions with parameters.
+
+We implemented variables and functions as Lisp values that can be saved on the Lisp environment to have our final Lisperers program.
+
+As mentioned before, the program can compute operations between integers:
 
     Lisperers> + 1 2 3 4 5 6 7 8 9
     45
@@ -116,7 +124,7 @@ From here you can do operations between integers (in Polish notation):
     Lisperers> / 386 100
     3
 
-As you may notice from the last two division operation lines, it is not only an integer calculator in terms of its input, but also in its output. If it would otherwise have a fractional answer, it always rounds down, or in other words, discards the remainder. You can also define different variables in the following way:
+Users can define different variables in the following way:
 
     Lisperers> def {var} 187
     ()
