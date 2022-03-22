@@ -6,7 +6,9 @@ A Lisp-Based Language in C developed by [Conan McGannon](https://github.com/hyrt
 
 **Lisp** is a family of programming languages characterised by its source code comprised of lists with a history dated backed to John McCarthy developing Lisp in 1958, making it the second-oldest high-level programming language (still in use) after Fortran. The language was originally created as a practical mathematical notation for computer programs, which later derived intself to become the favored language for computer science research, particularly artificial intelligence, due to its ability to process symbolic information effectively.
 
-All code within a Lisp language is written as a type of list known as an S-Expression, and a function call within a Lisp is also structured as a list, of the form (`function` argument1 argument2 argument3). 
+All code within a Lisp language is written as a type of list known as an S-Expression, and a function call within a Lisp is also structured as a list, of the form (`function` argument 1 argument 2 argument 3). 
+
+Many popular languages use an eager evaluation method of evaluating expressions, meaning that an expression is completely evaluated before its effects are applied. However, in certain languages (such as Lisps), they use what is known as delayed evaluation, which means that the actual evaluation of a function only happens when it is needed. In traditional Lisps, macros, or code that takes other code as an argument, transforms it and runs the output the original code’s stead, are the structures responsible for delaying evaluation during the program. However, there is also another method of doing this, in the form of a type of list known as a Q-expression. By design, Q-expressions are not evaluated by any of the non-evaluation functions, and they are the structure we have decided to implement in our Lisp.
 
 ## Project and Learning Goals
 
