@@ -10,7 +10,7 @@ A Lisp-Based Language in C developed by [Conan McGannon](https://github.com/hyrt
 
 The goal of our project is to gain fluency in C and its lower-level capabilities within memory management and language constructs. We want to attain our goal of getting more familiar with C by working with Lisps by learning more about its history and uses over time while developing our own basic implementation based on *Common Lisp*, a general-purpose Lisp language specification that supports multiple paradigms. And by working with Lisps, we want to understand how a core programming language is structured and seek new ways to view computation. Outside of computing, we want to collaborate effectively on the project through goal allocations and proper source code management to build a final product we can be proud of.
 
-With the Lisp's roots within mathematical notation for computers, we wanted to build a simple Lisp called "Lisperers" that will be able to be a "multi-purpose calculator that can complete basic mathematical operations (addition, subtraction, multiplication, and division), save numbers into variables, and build order of operations functions that can take in parameters. We will also build a command line interpreter where our language lives and can be used.
+With the Lisp's roots within mathematical notation for computers, as a lower bound, we wanted to implement a language that acts as a simple calculator, which can take in user input of integers and operations (addition, subtraction, multiplication, and division), and output answers. And at a higher bound, we want to implement a full-fledged language that can take in different inputs from integers, booleans, floats, and strings, be able to save them to variables and implement functions. This full implementation would essentially be a programming language in of itself and can be used to make programs.
 
 ## Resources
 
@@ -67,7 +67,7 @@ To run the program yourself, navigate to the `src` folder and run `./main` on yo
 
 Overall, we are satisfied with our work completing the Lisp-based calculator. While we were not able to reach our goals of building a full-fledged Lisp language that can have programs be built off of it, we are satisfied more in the progress we made learning about the Lisps, its uses, history, and implementation. We learned a lot when it comes to special ways in parsing through Special Expressions and Quoted Expressions within a Lisp environment. In our next steps, we hope to continue this project further to include string and conditional implementations as well as implementing a standard library of functions so a future user may be able to implement a project using the language.
 
-But with where we are at right now, through all that learning and progress we made in this month, we were able to have an implementation that can take in input, parse it for specific commands, compute mathematical operations, and save operations and numbers into functions and variables respectively.
+But with where we are at right now, through all that learning and progress we made in this month, we were able to have an implementation that can take in input, parse it for specific commands, compute mathematical operations, and save operations and integers into functions and variables respectively.
 
 ## Outline:
 
