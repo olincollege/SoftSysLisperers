@@ -1,16 +1,65 @@
-# Lisperers Project Update
+# LISPERERS
 
-## Actual Report:
+A Lisp-Based Language in C developed by [Conan McGannon](https://github.com/hyrtzhyro) and [Daniel Park](https://github.com/DanPark13).
+
+## Introduction
 
 **Lisp** is a family of programming languages characterised by its source code comprised of lists with a history dated backed to John McCarthy developing Lisp in 1958, making it the second-oldest high-level programming language (still in use) after Fortran. The language was originally created as a practical mathematical notation for computer programs, which later derived intself to become the favored language for computer science research, particularly artificial intelligence, due to its ability to process symbolic information effectively.
+
+## Project and Learning Goals
 
 The goal of our project is to gain fluency in C and its lower-level capabilities within memory management and language constructs. We want to attain our goal of getting more familiar with C by working with Lisps by learning more about its history and uses over time while developing our own basic implementation based on *Common Lisp*, a general-purpose Lisp language specification that supports multiple paradigms. And by working with Lisps, we want to understand how a core programming language is structured and seek new ways to view computation. Outside of computing, we want to collaborate effectively on the project through goal allocations and proper source code management to build a final product we can be proud of.
 
 With the Lisp's roots within mathematical notation for computers, we wanted to build a simple Lisp called "Lisperers" that will be able to be a "multi-purpose calculator that can complete basic mathematical operations (addition, subtraction, multiplication, and division), save numbers into variables, and build order of operations functions that can take in parameters. We will also build a command line interpreter where our language lives and can be used.
 
-Before going straight into building "Lisperers", we did research on Lisps learning more about its history, flavor implementations, and use cases. Starting with the [Wikipedia Page](https://en.wikipedia.org/wiki/Lisp_(programming_language) on Lisps, we went on a explorer's tangent, such as learning more about the very origins through [John McCarthy's Article](http://jmc.stanford.edu/articles/recursive/recursive.pdf) and exploring more about the [Common Lisp](https://en.wikipedia.org/wiki/Common_Lisp). The full list of resource finding can be found [here](https://github.com/olincollege/SoftSysLisperers/blob/main/resources/all_links.md).
+## Resources
 
-For implementation, we mainly consulted Daniel Holden's [Build Your Own Lisp Guide](https://buildyourownlisp.com/), following the tutorial and gaining insight to key points on what goes into a Lisp language.
+Before going straight into building "Lisperers", we did research on Lisps learning more about its history, flavor implementations, and use cases. Starting with the [Wikipedia Page](https://en.wikipedia.org/wiki/Lisp_(programming_language)) on Lisps, we went on a explorer's tangent, such as learning more about the very origins through [John McCarthy's Article](http://jmc.stanford.edu/articles/recursive/recursive.pdf) and Lisp' history through [History Computer's Guide](https://history-computer.com/lisp-programming-language-guide/). We also explored more about the [Common Lisp](https://en.wikipedia.org/wiki/Common_Lisp). We also got involved with several Lisp communities on Reddit, General Forums, and even 4chan to stay up to date with what is going on in the world with Lisps (answer: not too much in the past decade).
+
+For implementation, we mainly consulted Daniel Holden's [Build Your Own Lisp Guide](https://buildyourownlisp.com/), following the tutorial and gaining insight to key points on what goes into a Lisp language. We also used [TutorialPoint's Lisp Tutorial](https://www.tutorialspoint.com/lisp/index.htm) to learn more about Lisp Syntax as well as Peter Siebel's [Practical Common Lisp](https://gigamonkeys.com/book/) to get familiar with the Common Lisp and its structure specifically.
+
+## Implementation
+
+The full list of resources we consulted through our research can be found [here](https://github.com/olincollege/SoftSysLisperers/blob/main/resources/all_links.md).
+
+By the end of the project, we were able to complete a full program that acts as an integer calculator where you can save numbers to variables and complex operations into functions. The output starts by printing three introductory lines, and reading the user's input:
+
+    Lisperers Version 1.0
+    Press Ctrl+c to Exit
+
+    Lisperers> 
+
+From here you can do operations between integers (in Polish notation):
+
+    Lisperers> + 1 2 3 4 5 6 7 8 9
+    45
+    Lisperers> * 3 5 7 9
+    945
+    Lisperers> / 314 100
+    3
+    Lisperers> / 386 100
+    3
+
+As you may notice from the last two division operation lines, it is not only an integer calculator in terms of its input, but also in its output. If it would otherwise have a fractional answer, it always rounds down, or in other words, discards the remainder. You can also define different variables in the following way:
+
+    Lisperers> def {var} 187
+    ()
+    Lisperers> var
+    187
+
+We can also save order of operations equations into functions:
+
+    Lisperers> def {addition-multiplication} (\ {x y} {+ x y (* x y)})
+    ()
+    Lisperers> addition-multiplication 2 3
+    11
+
+And we can combine these two concepts by placing variables into functions and have our own Lisp-based calculator.
+
+    Lisperers> addition-multiplication var 3
+    751
+
+To test out the program, navigate to the `src` folder and run `./main` on your terminal.
 
 ## Outline:
 
@@ -63,10 +112,24 @@ From here you can do operations between integers (in Polish notation):
 
 As you may notice from the last two division operation lines, it is not only an integer calculator in terms of its input, but also in its output. If it would otherwise have a fractional answer, it always rounds down, or in other words, discards the remainder. You can also define different variables in the following way:
 
-    Lisperers> def {x} 187
+    Lisperers> def {var} 187
     ()
-    Lisperers> x
+    Lisperers> var
     187
+
+We can also save order of operations equations into functions:
+
+    Lisperers> def {addition-multiplication} (\ {x y} {+ x y (* x y)})
+    ()
+    Lisperers> addition-multiplication 2 3
+    11
+
+And we can combine these two concepts by placing variables into functions and have our own Lisp-based calculator.
+
+    Lisperers> addition-multiplication var 3
+    751
+
+To test it out, navigate to the `src` folder and run `./main` on your terminal.
 
 TODO: Link snippets of code with explanations of our process.
 
