@@ -47,19 +47,21 @@ As you may notice from the last two division operation lines, it is not only an 
     Lisperers> var
     187
 
-We can also save order of operations equations into functions:
+We can also save order of operations equations into functions. This function in particular takes in two parameters, x and y, and first multiples them to a single number, in this case 2 * 3 = 6. Then the program calculates the sum between x, y, and the product so 2 + 3 + 6 = 11.
 
     Lisperers> def {addition-multiplication} (\ {x y} {+ x y (* x y)})
     ()
     Lisperers> addition-multiplication 2 3
     11
 
-And we can combine these two concepts by placing variables into functions and have our own Lisp-based calculator.
+And we can combine these two concepts by placing variables into functions. `var`, which we previously defined as 187, replaces the parameter in the function. So 187 * 3 = 561. And with the sum of 187, 3, and 561 we get 751.
 
     Lisperers> addition-multiplication var 3
     751
 
-To test out the program, navigate to the `src` folder and run `./main` on your terminal.
+And with our implementation we have our Lisp-based calculator that can save variables and equations in the environment.
+
+To run the program yourself, navigate to the `src` folder and run `./main` on your terminal. Or you can recompile the program using the command `gcc main.c mpc.c -ledit -lm -o main.`
 
 ## Outline:
 
@@ -88,8 +90,6 @@ We will also be referring to additional resources such as the GigaMonkeys *Pract
 
 While we are also learning more about developing a Lisp language, we will also delve into the history of Lisp, being the second-oldest language only behind Fortran, and how it evolved into the base of many programming languages and tools we use today. Resources such as the John McCarthy's [History of Lisp](http://jmc.stanford.edu/articles/lisp/lisp.pdf) and History Computer's [Guide](https://history-computer.com/lisp-programming-language-guide/) will help us learn more about the Lisp language, and hopefully, help us gain a better appreciation for the beauty of computing.
 
-Add more potential resources later.
-
 ## 4) What were you able to get done?  Include in the report whatever evidence is appropriate to demonstrate the outcome of the project.  Consider including snippets of code with explanation; do not paste in large chunks of unexplained code.  Consider including links to relevant files.  And do include output from the program(s) you wrote.
 
 We were able to complete a full program that acts as an integer calculator where you can save numbers to variables and complex operations into functions. The output starts by printing three introductory lines, and reading the user's input:
@@ -117,19 +117,21 @@ As you may notice from the last two division operation lines, it is not only an 
     Lisperers> var
     187
 
-We can also save order of operations equations into functions:
+We can also save order of operations equations into functions. This function in particular takes in two parameters, x and y, and first multiples them to a single number, in this case 2 * 3 = 6. Then the program calculates the sum between x, y, and the product so 2 + 3 + 6 = 11.
 
     Lisperers> def {addition-multiplication} (\ {x y} {+ x y (* x y)})
     ()
     Lisperers> addition-multiplication 2 3
     11
 
-And we can combine these two concepts by placing variables into functions and have our own Lisp-based calculator.
+And we can combine these two concepts by placing variables into functions. `var`, which we previously defined as 187, replaces the parameter in the function. So 187 * 3 = 561. And with the sum of 187, 3, and 561 we get 751.
 
     Lisperers> addition-multiplication var 3
     751
 
-To test it out, navigate to the `src` folder and run `./main` on your terminal.
+And with our implementation we have our Lisp-based calculator.
+
+To run the program yourself, navigate to the `src` folder and run `./main` on your terminal.
 
 TODO: Link snippets of code with explanations of our process.
 
