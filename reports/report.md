@@ -18,9 +18,9 @@ Before going straight into building "Lisperers", we did research on Lisps learni
 
 For implementation, we mainly consulted Daniel Holden's [Build Your Own Lisp Guide](https://buildyourownlisp.com/), following the tutorial and gaining insight to key points on what goes into a Lisp language. We also used [TutorialPoint's Lisp Tutorial](https://www.tutorialspoint.com/lisp/index.htm) to learn more about Lisp Syntax as well as Peter Siebel's [Practical Common Lisp](https://gigamonkeys.com/book/) to get familiar with the Common Lisp and its structure specifically.
 
-## Implementation
-
 The full list of resources we consulted through our research can be found [here](https://github.com/olincollege/SoftSysLisperers/blob/main/resources/all_links.md).
+
+## Implementation
 
 By the end of the project, we were able to complete a full program that acts as an integer calculator where you can save numbers to variables and complex operations into functions. The output starts by printing three introductory lines, and reading the user's input:
 
