@@ -65,7 +65,7 @@ int main(int argc, char** argv) {
 
     mpc_result_t r;
       if (mpc_parse("<stdin>", input, Lispy, &r)) {
-        // 
+        // Parse input from stdin and evaluate it
         lval* x = lval_eval(e, lval_read(r.output));
         lval_println(x);
         lval_del(x);
