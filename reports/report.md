@@ -6,6 +6,8 @@ A Lisp-Based Language in C developed by [Conan McGannon](https://github.com/hyrt
 
 **Lisp** is a family of programming languages characterised by its source code comprised of lists with a history dated backed to John McCarthy developing Lisp in 1958, making it the second-oldest high-level programming language (still in use) after Fortran. The language was originally created as a practical mathematical notation for computer programs, which later derived intself to become the favored language for computer science research, particularly artificial intelligence, due to its ability to process symbolic information effectively.
 
+All code within a Lisp language is written as a type of list known as an S-Expression, and a function call within a Lisp is also structured as a list, of the form (`function` argument1 argument2 argument3). 
+
 ## Project and Learning Goals
 
 The goal of our project is to gain fluency in C and its lower-level capabilities within memory management and language constructs. We want to attain our goal of getting more familiar with C by working with Lisps by learning more about its history and uses over time while developing our own basic implementation based on *Common Lisp*, a general-purpose Lisp language specification that supports multiple paradigms. And by working with Lisps, we want to understand how a core programming language is structured and seek new ways to view computation. Outside of computing, we want to collaborate effectively on the project through goal allocations and proper source code management to build a final product we can be proud of.
