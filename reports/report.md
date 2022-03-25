@@ -14,7 +14,7 @@ Many popular languages use an eager evaluation method of evaluating expressions,
 
 The goal of our project is to gain fluency in C and its lower-level capabilities within memory management and language constructs. We want to attain our goal of getting more familiar with C by working with Lisps by learning more about its history and uses over time while developing our own basic implementation based on *Common Lisp*, a general-purpose Lisp language specification that supports multiple paradigms. And by working with Lisps, we want to understand how a core programming language is structured and seek new ways to view computation. Outside of computing, we want to collaborate effectively on the project through goal allocations and proper source code management to build a final product we can be proud of.
 
-With the Lisp's roots within mathematical notation for computers, as a lower bound, we wanted to implement a language that acts as a simple calculator, which can take in user input of integers and operations (addition, subtraction, multiplication, and division), and output answers. And at a higher bound, we want to implement a full-fledged language that can take in different inputs from integers, booleans, floats, and strings, be able to save them to variables and implement functions. This full implementation would essentially be a programming language in of itself and can be used to make programs.
+With the Lisp's roots within mathematical notation for computers, as a lower bound, we wanted to implement a language that acts as a simple calculator, which can take in user input of integers and operations (addition, subtraction, multiplication, and division), and output answers. And at a higher bound, we want to implement a full-fledged language that can take in different inputs from integers, booleans, floats, and strings, be able to save them to variables and implement functions. This full implementation would essentially be a programming language in and of itself, and can be used to make programs.
 
 ## Resources
 
@@ -68,7 +68,7 @@ mpca_lang(MPCA_LANG_DEFAULT,
  Number, Symbol, Sexpr, Qexpr, Expr, Lispy);
 ```
 
-Next, we create a virtual environment as well as the built-in functions for which our input and code lives in (defined in `lenv.c` for the virtual environment and `builtin.c` for the built-in functions)
+Next, we create a virtual environment as well as the built-in functions for which our input and code lives in (defined in `lenv.c` for the virtual environment and `builtin.c` for the built-in functions):
 
 ```C
 lenv* e = lenv_new();
@@ -94,7 +94,7 @@ else {
 }
 ```
 
-At the end of our main function, we need to free our input when we are done, as well as delete the Lisp value while cleaning up the parsers to end the function
+At the end of our main function, we need to free our input when we are done, as well as delete the Lisp value while cleaning up the parsers to end the function:
 
 ```C
  // Free dynamically allocated input when done
